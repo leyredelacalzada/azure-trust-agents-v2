@@ -15,6 +15,7 @@ load_dotenv(override=True)
 project_endpoint = os.environ.get("AI_FOUNDRY_PROJECT_ENDPOINT")
 model_deployment_name = os.environ.get("MODEL_DEPLOYMENT_NAME")
 cosmos_endpoint = os.environ.get("COSMOS_ENDPOINT")
+customer_data_agent_id = os.environ.get("CUSTOMER_DATA_AGENT_ID")
 
 # Initialize Cosmos DB clients globally for function tools
 cosmos_credential = DefaultAzureCredential()
@@ -81,7 +82,8 @@ agent = ChatAgent(
     chat_client=AzureAIAgentClient(
         project_endpoint=project_endpoint,
         model_deployment_name=model_deployment_name,
-        async_credential=AzureCliCredential()
+        async_credential=AzureCliCredential(),
+        agent_id=customer_data_agent_id
     ),
     tools=[
         get_customer_data,

@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 # Configuration
 project_endpoint = os.environ.get("AI_FOUNDRY_PROJECT_ENDPOINT")
 model_deployment_name = os.environ.get("MODEL_DEPLOYMENT_NAME")
+compliance_report_agent_id = os.environ.get("COMPLIANCE_REPORT_AGENT_ID")
 
 def parse_risk_analysis_result(
     risk_analysis_text: Annotated[str, Field(description="Output text from Risk Analyser Agent containing fraud analysis")]
@@ -361,7 +362,8 @@ You must ensure all audit reports are comprehensive, accurate, and suitable for 
     chat_client=AzureAIAgentClient(
         project_endpoint=project_endpoint,
         model_deployment_name=model_deployment_name,
-        async_credential=AzureCliCredential()
+        async_credential=AzureCliCredential(),
+        agent_id=compliance_report_agent_id
     ),
     tools=[
         parse_risk_analysis_result,
